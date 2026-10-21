@@ -1,4 +1,4 @@
-/* NSBM NewsDesk - our css (bootstrap 5 is loaded from cdn) */
+/* NSBM NewsDesk - Home & Navbar CSS */
 
 :root {
   --green: #0b5d3b;
@@ -13,7 +13,7 @@ body {
   color: #2b2f2c;
 }
 
-/* page fade in */
+/* Page animations */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(20px); }
   to   { opacity: 1; transform: translateY(0); }
@@ -26,7 +26,7 @@ main {
   animation: fadeUp 0.6s ease both;
 }
 
-/* navbar */
+/* Navbar */
 .navbar-green {
   background: linear-gradient(90deg, #073d27, #0b5d3b);
   border-bottom: 3px solid var(--light-green);
@@ -61,7 +61,7 @@ main {
   transform: scaleX(1);
 }
 
-/* buttons */
+/* Buttons */
 .btn {
   border-radius: 50px;
   padding-left: 18px;
@@ -101,7 +101,7 @@ main {
   border-color: var(--green);
 }
 
-/* hero banner on home page (put your photo in the campus images folder) */
+/* Campus Banner */
 .campus-banner {
   background:
     linear-gradient(120deg, rgba(7, 61, 39, 0.28), rgba(7, 61, 39, 0.15)),
@@ -127,7 +127,7 @@ main {
   font-weight: 600;
 }
 
-/* white box used in many pages */
+/* Content Box & Section Titles */
 .box {
   background-color: white;
   border: 1px solid #e3e9df;
@@ -135,7 +135,6 @@ main {
   padding: 20px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
-
 .section-title {
   border-left: 5px solid var(--light-green);
   padding-left: 12px;
@@ -144,7 +143,7 @@ main {
   font-weight: 600;
 }
 
-/* news cards */
+/* News Cards & Images */
 .card {
   border: 1px solid #e3e9df;
   border-radius: 14px;
@@ -194,56 +193,18 @@ main {
   padding: 5px 10px;
 }
 
-/* forms and tables */
+/* Forms & Alerts */
 .form-control:focus,
 .form-select:focus {
   border-color: var(--light-green);
   box-shadow: 0 0 0 0.2rem rgba(122, 193, 67, 0.25);
 }
-.table {
-  background-color: white;
-}
-.table thead th {
-  background-color: #e9f3df;
-  border-bottom: 2px solid var(--light-green);
-}
-.table tbody tr {
-  transition: background-color 0.2s;
-}
-.table tbody tr:hover {
-  background-color: #f4faee;
-}
-.pagination .page-link {
-  color: var(--green);
-}
-.pagination .active .page-link {
-  background-color: var(--green);
-  border-color: var(--green);
-  color: white;
-}
-
 .alert {
   border-radius: 12px;
   animation: fadeUp 0.5s ease both;
 }
 
-/* login and register */
-.login-box {
-  max-width: 420px;
-  margin: 30px auto;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
-}
-body.auth-page {
-  background:
-    linear-gradient(rgba(7, 61, 39, 0.8), rgba(7, 61, 39, 0.8)),
-    url("../images/campus/login.jpg") center / cover fixed no-repeat,
-    var(--dark-green);
-}
-body.auth-page .alert {
-  margin-top: 10px;
-}
-
-/* footer */
+/* Footer */
 .footer {
   background-color: var(--dark-green);
   color: #dfeedd;
@@ -252,36 +213,7 @@ body.auth-page .alert {
   border-top: 4px solid var(--light-green);
 }
 
-/* admin pages */
-.sidebar {
-  background-color: white;
-  border-right: 1px solid #e3e9df;
-  min-height: 100vh;
-}
-.sidebar a {
-  color: #2b2f2c;
-  text-decoration: none;
-  display: block;
-  padding: 9px 14px;
-  margin-bottom: 3px;
-  border-radius: 8px;
-  transition: background-color 0.2s, padding-left 0.2s;
-}
-.sidebar a:hover {
-  background-color: #e4f2d6;
-  padding-left: 20px;
-}
-.sidebar a.active {
-  background-color: var(--green);
-  color: white;
-}
-.big-number {
-  font-size: 32px;
-  font-weight: bold;
-  color: var(--green);
-}
-
-/* scroll animation (js adds these classes) */
+/* Scroll Animations & Media Queries */
 .reveal {
   opacity: 0;
   transform: translateY(35px);
@@ -307,12 +239,8 @@ body.auth-page .alert {
   .campus-banner {
     padding: 40px 20px;
   }
-  .sidebar {
-    min-height: auto;
-  }
 }
 
-/* hide stuff when printing */
 @media print {
   .no-print {
     display: none;
