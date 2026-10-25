@@ -228,18 +228,23 @@ main {
 }
 
 /* login and register */
+/* login and register */
 .login-box {
   max-width: 420px;
-  margin: 75
-  px auto;
+  margin: 75px auto;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
 }
+
 body.auth-page {
   background:
-    linear-gradient(rgba(7, 61, 39, 0.2), rgba(7, 51, 90, 0.2)),
-    url("../images/campus/hero.png") center / cover fixed no-repeat,
+    linear-gradient(
+      rgba(7, 61, 39, 0.2),
+      rgba(7, 51, 90, 0.2)
+    ),
+    url("../images/hero.png") center / cover fixed no-repeat,
     var(--dark-green);
 }
+
 body.auth-page .alert {
   margin-top: 10px;
 }
