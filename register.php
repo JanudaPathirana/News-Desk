@@ -9,37 +9,10 @@
 </head>
 <body class="d-flex flex-column min-vh-100 auth-page">
 
-<nav class="navbar navbar-expand-lg navbar-dark navbar-green no-print">
-  <div class="container">
-    <a class="navbar-brand fw-bold" href="index.html">NSBM <span>NewsDesk</span></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="menu">
-      <ul class="navbar-nav me-auto">
-        <li class="nav-item">
-          <a class="nav-link " href="index.html">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link " href="news.html">All News</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link " href="submit.html">Submit Article</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link " href="bookmarks.html">Saved</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link " href="subscriptions.html">Subscriptions</a>
-        </li>
-      </ul>
-      <div>
-        <a class="btn btn-sm btn-outline-light" href="login.html">Login</a>
-        <a class="btn btn-sm btn-light-green" href="register.html">Register</a>
-      </div>
-    </div>
-  </div>
-</nav>
+<?php
+include 'navbar.php'
+
+?>
 
 <main class="container py-4 flex-grow-1">
 <div class="box login-box">
@@ -68,15 +41,13 @@
     </div>
     <button class="btn btn-green w-100">Register</button>
   </form>
-  <p class="mt-3 mb-0 text-center">Already registered? <a href="login.html">Login</a></p>
+  <p class="mt-3 mb-0 text-center">Already registered? <a href="login.php">Login</a></p>
 </div>
 </main>
 
-<footer class="footer no-print">
-  <div class="container text-center">
-    NSBM NewsDesk - Campus News Management System | NSBM Green University &copy; 2026
-  </div>
-</footer>
+<?php
+include 'footer.php'
+?>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="js/main.js"></script>
