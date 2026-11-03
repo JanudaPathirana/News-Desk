@@ -25,6 +25,24 @@ CREATE TABLE categories (
   name VARCHAR(60) NOT NULL UNIQUE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- Articles table
+CREATE TABLE articles (
+  id          INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  title       VARCHAR(200) NOT NULL,
+  body        TEXT NOT NULL,
+  image       VARCHAR(255) NULL,
+  category_id INT UNSIGNED NOT NULL,
+  author_id   INT UNSIGNED NOT NULL,
+  status      ENUM('pending','approved','rejected') NOT NULL DEFAULT 'pending',
+  is_featured TINYINT(1) NOT NULL DEFAULT 0,
+  is_breaking TINYINT(1) NOT NULL DEFAULT 0,
+  views       INT UNSIGNED NOT NULL DEFAULT 0,
+  created_at  TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at  TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  INDEX idx_status_date (status, created_at),
+  CONSTRAINT fk_art_cat  FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE RESTRICT,
+  CONSTRAINT fk_art_user FOREIGN KEY (author_id)   REFERENCES users(id)      ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
 
