@@ -1,4 +1,30 @@
-/* NSBM NewsDesk - Home & Navbar CSS */
+/* NEW Design CSS Codes Here */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* NSBM NewsDesk - Home & Navbar CSS
 
 :root {
   --green: #0b5d3b;
@@ -14,6 +40,7 @@ body {
 }
 
 /* Page animations */
+/* 
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(20px); }
   to   { opacity: 1; transform: translateY(0); }
@@ -24,10 +51,10 @@ body {
 }
 main {
   animation: fadeUp 0.6s ease both;
-}
+} */
 
 /* Navbar */
-.navbar-green {
+/* .navbar-green { 
   background: linear-gradient(90deg, #073d27, #0b5d3b);
   border-bottom: 3px solid var(--light-green);
   animation: slideDown 0.5s ease both;
@@ -35,7 +62,7 @@ main {
   top: 0;
   z-index: 1030;
   transition: box-shadow 0.3s;
-}
+/* } 
 .navbar-green.scrolled {
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
 }
@@ -61,7 +88,7 @@ main {
   transform: scaleX(1);
 }
 
-/* Buttons */
+/* Buttons 
 .btn {
   border-radius: 50px;
   padding-left: 18px;
@@ -101,7 +128,7 @@ main {
   border-color: var(--green);
 }
 
-/* Campus Banner */
+/* Campus Banner 
 .campus-banner {
   background:
     linear-gradient(120deg, rgba(7, 61, 39, 0.28), rgba(7, 61, 39, 0.15)),
@@ -127,7 +154,7 @@ main {
   font-weight: 600;
 }
 
-/* Content Box & Section Titles */
+/* Content Box & Section Titles 
 .box {
   background-color: white;
   border: 1px solid #e3e9df;
@@ -143,7 +170,7 @@ main {
   font-weight: 600;
 }
 
-/* News Cards & Images */
+/* News Cards & Images 
 .card {
   border: 1px solid #e3e9df;
   border-radius: 14px;
@@ -193,7 +220,7 @@ main {
   padding: 5px 10px;
 }
 
-/* Forms & Alerts */
+/* Forms & Alerts 
 .form-control:focus,
 .form-select:focus {
   border-color: var(--light-green);
@@ -204,7 +231,7 @@ main {
   animation: fadeUp 0.5s ease both;
 }
 
-/* Footer */
+/* Footer 
 .footer {
   background-color: var(--dark-green);
   color: #dfeedd;
@@ -213,7 +240,7 @@ main {
   border-top: 4px solid var(--light-green);
 }
 
-/* Scroll Animations & Media Queries */
+/* Scroll Animations & Media Queries 
 .reveal {
   opacity: 0;
   transform: translateY(35px);
@@ -245,4 +272,4 @@ main {
   .no-print {
     display: none;
   }
-}
+} */
