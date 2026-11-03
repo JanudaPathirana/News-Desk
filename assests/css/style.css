@@ -1,43 +1,63 @@
-/* NEW Design CSS Codes Here */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* NSBM NewsDesk - Home & Navbar CSS
-
+/* Define colors as CSS variables for easy theming for web page */
 :root {
-  --green: #0b5d3b;
-  --dark-green: #073d27;
-  --light-green: #7ac143;
-  --bs-success: #0b5d3b;
-  --bs-success-rgb: 11, 93, 59;
+  --nsbm-navy: #0a2240;
+  --nsbm-navy-dark: #07192f;
+  --nsbm-navy-light: #133b6b;
+  --nsbm-blue-accent: #2563eb;
+
+  --green: #008751;
+  --dark-green: #006b40;
+  --light-green: #10b981;
+  --green-mint: #34d399;
+  --green-subtle: #ecfdf5;
+
+  --bg-page: #f8fafc;
+  --card-bg: #ffffff;
+  --border-color: #e2e8f0;
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+
+  --bs-success: #008751;
+  --bs-success-rgb: 0, 135, 81;
+  --bs-primary: #0a2240;
+  --bs-primary-rgb: 10, 34, 64;
 }
 
 body {
-  background-color: #f3f7f1;
-  color: #2b2f2c;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: var(--bg-page);
+  color: var(--text-main);
+  -webkit-font-smoothing: antialiased;
 }
+
+/* Animations */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}
+
+main {
+  animation: fadeUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+
 
 /* Page animations */
 /* 
