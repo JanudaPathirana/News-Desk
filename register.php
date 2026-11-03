@@ -1,55 +1,70 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Register | NSBM NewsDesk</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="css/style.css" rel="stylesheet">
-</head>
-<body class="d-flex flex-column min-vh-100 auth-page">
-
 <?php
-include 'navbar.php'
+require_once __DIR__ . '/includes/auth.php';
 
+if (is_logged_in()) {
+    redirect('index.php');
+}
+
+$error = '';
+$name = '';
+$student_id = '';
+$email = '';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $name = post('name');
+    $student_id = strtoupper(post('student_id'));
+    $email = post('email');
+    $password = $_POST['password'] ?? '';
+
+    if (empty($name) || empty($student_id) || empty($email) || empty($password)) {
+        $error = 'All fields are required.';
+    } else {
+        $st = $pdo->prepare('SELECT id FROM users WHERE email = ? OR student_id = ?');
+        $st->execute([$email, $student_id]);
+        if ($st->fetch()) {
+            $error = 'Email or Student ID is already registered.';
+        } else {
+            $hash = password_hash($password, PASSWORD_DEFAULT);
+            $ins = $pdo->prepare('INSERT INTO users (name, student_id, email, password_hash, role) VALUES (?, ?, ?, ?, "student")');
+            $ins->execute([$name, $student_id, $email, $hash]);
+            flash('success', 'Registration successful! You can now log in.');
+            redirect('login.php');
+        }
+    }
+}
+
+$pageTitle = 'Student Registration';
+require_once __DIR__ . '/includes/header.php';
+require_once __DIR__ . '/includes/navbar.php';
 ?>
-
-<main class="container py-4 flex-grow-1">
-<div class="box login-box">
-  <h2>Create Account</h2>
-  <p class="text-muted">For students only.</p>
-  <form>
-    <div class="mb-3">
-      <label class="form-label" for="name">Full name</label>
-      <input class="form-control" id="name" name="name" type="text" required>
+<main class="container my-5">
+  <div class="box login-box">
+    <h3 class="fw-bold mb-3 text-center">Student Registration</h3>
+    <?php if ($error): ?>
+      <div class="alert alert-danger"><?= e($error) ?></div>
+    <?php endif; ?>
+    <form method="post">
+      <div class="mb-3">
+        <label class="form-label">Full Name</label>
+        <input class="form-control" name="name" required value="<?= e($name) ?>">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Student ID (e.g. ST10001)</label>
+        <input class="form-control" name="student_id" required value="<?= e($student_id) ?>">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Email</label>
+        <input class="form-control" name="email" type="email" required value="<?= e($email) ?>">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Password</label>
+        <input class="form-control" name="password" type="password" required>
+      </div>
+      <button class="btn btn-green w-100" type="submit">Register</button>
+    </form>
+    <div class="text-center mt-3">
+      <small>Already registered? <a href="login.php">Log In</a></small>
     </div>
-    <div class="mb-3">
-      <label class="form-label" for="sid">Student ID</label>
-      <input class="form-control" id="sid" name="student_id" type="text" required>
-    </div>
-    <div class="mb-3">
-      <label class="form-label" for="email">University email</label>
-      <input class="form-control" id="email" name="email" type="email" required>
-    </div>
-    <div class="mb-3">
-      <label class="form-label" for="password">Password</label>
-      <input class="form-control" id="password" name="password" type="password" required minlength="8">
-    </div>
-    <div class="mb-3">
-      <label class="form-label" for="password2">Confirm password</label>
-      <input class="form-control" id="password2" name="password2" type="password" required minlength="8">
-    </div>
-    <button class="btn btn-green w-100">Register</button>
-  </form>
-  <p class="mt-3 mb-0 text-center">Already registered? <a href="login.php">Login</a></p>
-</div>
+  </div>
 </main>
-
-<?php
-include 'footer.php'
-?>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="js/main.js"></script>
-</body>
-</html>
+<?php require_once __DIR__ . '/includes/footer.php'; ?>
