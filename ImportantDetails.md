@@ -1,0 +1,1 @@
+Added core color codes and CSS variables to maintain consistent colours and styling across the website.(Januda)
