@@ -58,9 +58,7 @@ main {
 }
 
 
-/* ============================================================
-   Navigation Bar (NSBM Deep Navy + Vibrant Emerald Accent)
-   ============================================================ */
+/* Navigation bar */
 .navbar-green {
   background: linear-gradient(135deg, var(--nsbm-navy-dark) 0%, var(--nsbm-navy) 65%, var(--nsbm-navy-light) 100%);
   border-bottom: 3px solid var(--green);
@@ -100,9 +98,7 @@ main {
 }
 
 
-/* ============================================================
-   Footer (NSBM Deep Navy + Clean Emerald Line)
-   ============================================================ */
+/*  footer - stylling layout*/
 .footer {
   background-color: var(--nsbm-navy-dark);
   color: #e2e8f0;
