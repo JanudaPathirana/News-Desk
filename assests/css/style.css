@@ -58,6 +58,59 @@ main {
 }
 
 
+/* ============================================================
+   Navigation Bar (NSBM Deep Navy + Vibrant Emerald Accent)
+   ============================================================ */
+.navbar-green {
+  background: linear-gradient(135deg, var(--nsbm-navy-dark) 0%, var(--nsbm-navy) 65%, var(--nsbm-navy-light) 100%);
+  border-bottom: 3px solid var(--green);
+  box-shadow: 0 4px 20px rgba(10, 34, 64, 0.15);
+  animation: slideDown 0.4s ease both;
+  position: sticky;
+  top: 0;
+  z-index: 1030;
+  padding: 12px 0;
+}
+
+.navbar-brand {
+  font-size: 1.35rem;
+  letter-spacing: -0.02em;
+}
+.navbar-brand span {
+  color: var(--green-mint);
+  font-weight: 700;
+}
+
+.navbar-green .nav-link {
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 500;
+  padding: 8px 14px;
+  border-radius: 50px;
+  transition: all 0.2s ease;
+  margin: 0 2px;
+}
+.navbar-green .nav-link:hover {
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+.navbar-green .nav-link.active {
+  color: #ffffff !important;
+  background-color: rgba(0, 135, 81, 0.35);
+  border: 1px solid rgba(52, 211, 153, 0.4);
+}
+
+
+/* ============================================================
+   Footer (NSBM Deep Navy + Clean Emerald Line)
+   ============================================================ */
+.footer {
+  background-color: var(--nsbm-navy-dark);
+  color: #e2e8f0;
+  padding: 24px 0;
+  margin-top: 60px;
+  border-top: 3px solid var(--green);
+}
+
 
 /* Page animations */
 /* 
