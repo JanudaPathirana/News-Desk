@@ -9,6 +9,7 @@ $st = $pdo->prepare("SELECT a.*, c.name AS cat, u.name AS author_name
                      WHERE a.id = ? AND a.status = 'approved'");
 $st->execute([$id]);
 $article = $st->fetch();
+if ($article) { $pdo->prepare('UPDATE articles SET views = views + 1 WHERE id = ?')->execute([$id]); }
 
 if (!$article) {
     flash('danger', 'Article not found or pending approval.');
