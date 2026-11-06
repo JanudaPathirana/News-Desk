@@ -29,6 +29,9 @@ require_once __DIR__ . '/includes/navbar.php';
   <div class="box p-4 shadow-sm">
     <h3 class="fw-bold mb-2">Category Subscriptions</h3>
     <form method="post">
+      <div class="mb-3">
+        <button type="button" id="selectAllBtn" class="btn btn-sm btn-outline-secondary">Select All Categories</button>
+      </div>
       <?= csrf_field() ?>
       <?php foreach ($cats as $c): ?>
         <div class="form-check mb-2">
