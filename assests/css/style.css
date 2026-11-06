@@ -97,6 +97,154 @@ main {
   border: 1px solid rgba(52, 211, 153, 0.4);
 }
 
+/* Buttons */
+.btn {
+  border-radius: 50px;
+  font-weight: 600;
+  padding: 8px 20px;
+  font-size: 0.92rem;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(10, 34, 64, 0.12);
+}
+.btn:active {
+  transform: translateY(0);
+}
+.btn-sm {
+  padding: 6px 14px;
+  font-size: 0.83rem;
+}
+
+.btn-green {
+  background: linear-gradient(135deg, var(--green) 0%, var(--light-green) 100%);
+  color: #ffffff;
+  border: none;
+  box-shadow: 0 4px 14px rgba(0, 135, 81, 0.25);
+}
+.btn-green:hover {
+  background: linear-gradient(135deg, var(--dark-green) 0%, var(--green) 100%);
+  color: #ffffff;
+  box-shadow: 0 6px 18px rgba(0, 135, 81, 0.35);
+}
+
+.btn-light-green {
+  background-color: var(--green-subtle);
+  color: var(--green);
+  border: 1.5px solid #a7f3d0;
+  font-weight: 600;
+}
+.btn-light-green:hover {
+  background-color: var(--green);
+  border-color: var(--green);
+  color: #ffffff;
+}
+
+.btn-navy {
+  background: linear-gradient(135deg, var(--nsbm-navy) 0%, var(--nsbm-navy-light) 100%);
+  color: #ffffff;
+  border: none;
+}
+.btn-navy:hover {
+  background: linear-gradient(135deg, var(--nsbm-navy-dark) 0%, var(--nsbm-navy) 100%);
+  color: #ffffff;
+}
+
+.btn-outline-success {
+  color: var(--green);
+  border-color: var(--green);
+  background-color: transparent;
+}
+.btn-outline-success:hover {
+  background-color: var(--green);
+  border-color: var(--green);
+  color: #ffffff;
+}
+
+.btn-outline-light {
+  border-color: rgba(255, 255, 255, 0.5);
+  color: #ffffff;
+}
+.btn-outline-light:hover {
+  background-color: #ffffff;
+  color: var(--nsbm-navy);
+}
+
+/*Campus hero banner (HOME PAGE)*/
+.campus-banner {
+  background:
+    linear-gradient(135deg, rgba(7, 25, 47, 0.92) 0%, rgba(10, 34, 64, 0.85) 45%, rgba(0, 135, 81, 0.78) 100%),
+    url("../img/campus/hero.jpg") center / cover no-repeat;
+  color: #ffffff;
+  border-radius: 22px;
+  padding: 65px 45px;
+  margin-bottom: 35px;
+  box-shadow: 0 16px 40px rgba(10, 34, 64, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.campus-banner h1 {
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  font-size: 2.5rem;
+  max-width: 650px;
+}
+.campus-banner p {
+  max-width: 540px;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.05rem;
+}
+
+.banner-small {
+  display: inline-block;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 11px;
+  color: var(--green-mint);
+  font-weight: 700;
+  background: rgba(16, 185, 129, 0.2);
+  border: 1px solid rgba(52, 211, 153, 0.35);
+  border-radius: 50px;
+  padding: 4px 14px;
+  margin-bottom: 12px;
+}
+
+
+
+
+/*Modern white cards and content boxes*/
+.box {
+  background-color: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 18px;
+  padding: 24px;
+  box-shadow: 0 4px 20px rgba(10, 34, 64, 0.04);
+  transition: all 0.3s ease;
+}
+
+.section-title {
+  position: relative;
+  padding-left: 15px;
+  margin-top: 40px;
+  margin-bottom: 22px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--nsbm-navy);
+}
+.section-title::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 4px;
+  bottom: 4px;
+  width: 5px;
+  background: linear-gradient(180deg, var(--green) 0%, var(--nsbm-navy-light) 100%);
+  border-radius: 4px;
+}
+
+
+
 /* News Cards */
 .card {
   border: 1px solid var(--border-color);
