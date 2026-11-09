@@ -22,7 +22,7 @@ require_once __DIR__ . '/includes/navbar.php';
   <div class="box p-0 overflow-hidden shadow-sm">
     <table class="table mb-0">
       <thead class="table-light">
-        <tr><th>Title</th><th>Category</th><th>Status</th><th>Submitted</th></tr>
+        <tr><th>Title</th><th>Category</th><th>Status</th><th>Submitted</th><th>Action</th></tr>
       </thead>
       <tbody>
         <?php foreach ($rows as $r): ?>
@@ -30,7 +30,7 @@ require_once __DIR__ . '/includes/navbar.php';
             <td><?= e($r['title']) ?></td>
             <td><?= e($r['cat']) ?></td>
             <td><?= status_badge($r['status']) ?></td>
-            <td><?= fmt_date($r['created_at']) ?></td>
+            <td><?= fmt_date($r['created_at']) ?></td><td><a href='submit.php?id=<?= (int)$r["id"] ?>' class='btn btn-sm btn-outline-primary'>Edit</a></td>
           </tr>
         <?php endforeach; ?>
       </tbody>
