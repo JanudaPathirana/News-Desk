@@ -306,6 +306,98 @@ main {
   padding: 6px 12px;
   font-size: 0.78rem;
 }
+/*Forms, Inputs and Tables*/
+.form-control, .form-select {
+  border-radius: 12px;
+  border: 1.5px solid #cbd5e1;
+  padding: 10px 16px;
+  color: var(--text-main);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.form-control:focus, .form-select:focus {
+  border-color: var(--green);
+  box-shadow: 0 0 0 4px rgba(0, 135, 81, 0.15);
+}
+
+.table {
+  background-color: var(--card-bg);
+  border-collapse: separate;
+  border-spacing: 0;
+}
+.table thead th {
+  background-color: #f1f5f9;
+  color: var(--nsbm-navy);
+  font-weight: 700;
+  border-bottom: 2px solid var(--border-color);
+  padding: 14px 16px;
+}
+.table tbody td {
+  padding: 14px 16px;
+  border-bottom: 1px solid #f1f5f9;
+  vertical-align: middle;
+}
+.table tbody tr:hover {
+  background-color: #f8fafc;
+}
+
+.pagination .page-link {
+  color: var(--nsbm-navy);
+  border-radius: 8px;
+  margin: 0 3px;
+  border-color: var(--border-color);
+}
+.pagination .active .page-link {
+  background-color: var(--green);
+  border-color: var(--green);
+  color: white;
+}
+
+/*Alerts */
+.alert {
+  border-radius: 14px;
+  border: 1px solid transparent;
+  padding: 14px 20px;
+  animation: fadeUp 0.35s ease both;
+}
+.alert-success {
+  background-color: #ecfdf5;
+  border-color: #a7f3d0;
+  color: #065f46;
+}
+.alert-danger {
+  background-color: #fef2f2;
+  border-color: #fecaca;
+  color: #991b1b;
+}
+.alert-warning {
+  background-color: #fffbeb;
+  border-color: #fde68a;
+  color: #92400e;
+}
+.alert-info {
+  background-color: #eff6ff;
+  border-color: #bfdbfe;
+  color: #1e40af;
+}
+
+/*login and register page (auth)*/
+.login-box {
+  max-width: 440px;
+  margin: 40px auto;
+  border-radius: 20px;
+  box-shadow: 0 20px 50px rgba(10, 34, 64, 0.25);
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  padding: 35px;
+}
+
+body.auth-page {
+  background:
+    linear-gradient(135deg, rgba(7, 25, 47, 0.88) 0%, rgba(10, 34, 64, 0.82) 50%, rgba(0, 135, 81, 0.78) 100%),
+    url("../img/campus/login.jpg") center / cover fixed no-repeat,
+    var(--nsbm-navy);
+}
 
 
 
