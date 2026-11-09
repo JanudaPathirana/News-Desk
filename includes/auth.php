@@ -38,3 +38,19 @@ function get_flash() {
     unset($_SESSION['flash']);
     return $list;
 }
+
+function is_admin() {
+    return is_logged_in() && $_SESSION['user']['role'] == 'admin';
+}
+function require_login() {
+    if (!is_logged_in()) {
+        flash('warning', 'Please log in first.');
+        redirect('login.php');
+    }
+}
+function require_admin() {
+    if (!is_admin()) {
+        flash('danger', 'Only admins can open this page.');
+        redirect('login.php');
+    }
+}
