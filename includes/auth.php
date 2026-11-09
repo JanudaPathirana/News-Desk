@@ -54,3 +54,21 @@ function require_admin() {
         redirect('login.php');
     }
 }
+
+function csrf_token() {
+    if (empty($_SESSION['csrf'])) {
+        $_SESSION['csrf'] = bin2hex(random_bytes(16));
+    }
+    return $_SESSION['csrf'];
+}
+function csrf_field() {
+    return '<input type="hidden" name="csrf" value="' . csrf_token() . '">';
+}
+function csrf_check() {
+    if (($_POST['csrf'] ?? '') !== ($_SESSION['csrf'] ?? 'none')) {
+        die('Form token is not valid. Go back and try again.');
+    }
+}
+function fmt_date($date) {
+    return date('d M Y', strtotime($date));
+}
