@@ -307,6 +307,7 @@ main {
   font-size: 0.78rem;
 }
 /*Forms, Inputs and Tables*/
+
 .form-control, .form-select {
   border-radius: 12px;
   border: 1.5px solid #cbd5e1;
@@ -410,7 +411,43 @@ body.auth-page {
   border-top: 3px solid var(--green);
 }
 
+/*Admin sidebar and Dashboard*/
 
+.sidebar {
+  background-color: var(--card-bg);
+  border-right: 1px solid var(--border-color);
+  min-height: 100vh;
+  padding: 20px 12px;
+}
+.sidebar a {
+  color: var(--text-main);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  margin-bottom: 4px;
+  border-radius: 12px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+.sidebar a:hover {
+  background-color: #f1f5f9;
+  color: var(--nsbm-navy);
+  padding-left: 20px;
+}
+.sidebar a.active {
+  background: linear-gradient(135deg, var(--nsbm-navy) 0%, var(--nsbm-navy-light) 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(10, 34, 64, 0.15);
+}
+
+.big-number {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--green);
+  letter-spacing: -0.03em;
+}
 
 /* Page animations */
 /* 
