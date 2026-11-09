@@ -1,0 +1,40 @@
+<?php
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+require_once __DIR__ . '/../config/db.php';
+
+function e($text) {
+    return htmlspecialchars((string)$text, ENT_QUOTES, 'UTF-8');
+}
+function redirect($url) {
+    header('Location: ' . $url);
+    exit;
+}
+function post($key) {
+    return trim($_POST[$key] ?? '');
+}
+function is_logged_in() {
+    return !empty($_SESSION['user']);
+}
+function user() {
+    return $_SESSION['user'] ?? null;
+}
+function login_user($row) {
+    session_regenerate_id(true);
+    $_SESSION['user'] = [
+        'id' => (int)$row['id'],
+        'name' => $row['name'],
+        'student_id' => $row['student_id'] ?? '',
+        'email' => $row['email'],
+        'role' => $row['role']
+    ];
+}
+function flash($type, $message) {
+    $_SESSION['flash'][] = [$type, $message];
+}
+function get_flash() {
+    $list = $_SESSION['flash'] ?? [];
+    unset($_SESSION['flash']);
+    return $list;
+}

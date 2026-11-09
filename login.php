@@ -1,49 +1,54 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Login | NSBM NewsDesk</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="css/style.css" rel="stylesheet">
-</head>
-<body class="d-flex flex-column min-vh-100 auth-page">
-
-
 <?php
-include 'navbar.php'
+require_once __DIR__ . '/includes/auth.php';
+
+if (is_logged_in()) {
+    redirect('index.php');
+}
+
+$email = '';
+$error = '';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $email = post('email');
+    $password = $_POST['password'] ?? '';
+
+    $st = $pdo->prepare('SELECT * FROM users WHERE email = ?');
+    $st->execute([$email]);
+    $u = $st->fetch();
+
+    if ($u && ($password === $u['password_hash'] || password_verify($password, $u['password_hash']))) {
+        login_user($u);
+        flash('success', 'Welcome back, ' . $u['name'] . '!');
+        redirect('index.php');
+    } else {
+        $error = 'Invalid email or password.';
+    }
+}
+
+$pageTitle = 'Log In';
+require_once __DIR__ . '/includes/header.php';
+require_once __DIR__ . '/includes/navbar.php';
 ?>
-
-
-<main class="container py-4 flex-grow-1">
-<div class="box login-box">
-  <h2>Login</h2>
-  <p class="text-muted">Use your NSBM student account.</p>
-  <form>
-    <div class="mb-3">
-      <label class="form-label" for="email">University email</label>
-      <input class="form-control" id="email" name="email" type="email" required>
+<main class="container my-5">
+  <div class="box login-box">
+    <h3 class="fw-bold mb-3 text-center">Student Login</h3>
+    <?php if ($error): ?>
+      <div class="alert alert-danger"><?= e($error) ?></div>
+    <?php endif; ?>
+    <form method="post">
+      <div class="mb-3">
+        <label class="form-label">Email Address</label>
+        <input class="form-control" name="email" type="email" required value="<?= e($email) ?>">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Password</label>
+        <input class="form-control" name="password" type="password" required>
+      </div>
+      <button class="btn btn-green w-100" type="submit">Sign In</button>
+    </form>
+    <div class="text-center mt-3">
+      <small>Don't have an account? <a href="register.php">Register</a></small>
     </div>
-    <div class="mb-3">
-      <label class="form-label" for="password">Password</label>
-      <input class="form-control" id="password" name="password" type="password" required minlength="6">
-    </div>
-    <button class="btn btn-green w-100">Login</button>
-  </form>
-  <p class="mt-3 mb-0 text-center">New here? <a href="register.php">Create an account</a></p>
-  <p class="mt-2 mb-0 text-center"><a href="adminlogin.php">Admin login</a></p>
-</div>
+  </div>
 </main>
-
-
-<?php
-include 'footer.php'
-?>
-
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="js/main.js"></script>
-</body>
-</html>
-
-<!-- This is is first web page (login.php)frontend -->
+<?php require_once __DIR__ . '/includes/footer.php'; ?>
