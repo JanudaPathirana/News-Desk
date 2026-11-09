@@ -1,7 +1,7 @@
 // NSBM NewsDesk Client Scripts (v2.0)
-document.addEventListener('DOMContentLoaded', function () {
 
-    // Auto-dismiss alerts after 5 seconds
+document.addEventListener('DOMContentLoaded', function () {
+    // 1. Auto-dismiss alerts after 5 seconds  
     setTimeout(function () {
         var alerts = document.querySelectorAll('.alert-dismissible');
         alerts.forEach(function (alert) {
@@ -10,15 +10,13 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }, 5000);
 
-
-    // Navbar shadow when page is scrolled
+    // 2. Navbar shadow when page is scrolled  
     var nav = document.querySelector('.navbar-green');
     window.addEventListener('scroll', function () {
         if (nav) nav.classList.toggle('scrolled', window.scrollY > 10);
     });
 
-
-    // Scroll animation - fade in items when they become visible
+    // 3. Scroll animation - fade in items when they become visible  
     var items = document.querySelectorAll(
         '.card, .box, .section-title, .table-responsive, .btn-outline-dark'
     );
@@ -40,15 +38,14 @@ document.addEventListener('DOMContentLoaded', function () {
 
             el.classList.add('reveal');
 
-            // Small delay so cards in a row appear one by one
+            // Small delay so cards in a row appear one by one  
             el.style.transitionDelay = (i % 3) * 0.1 + 's';
 
             observer.observe(el);
         });
     }
 
-
-    // Count up animation for admin dashboard numbers
+    // 4. Count up animation for admin dashboard numbers  
     document.querySelectorAll('.big-number').forEach(function (el) {
         var end = parseInt(el.textContent.replace(/,/g, ''), 10);
 
@@ -68,17 +65,17 @@ document.addEventListener('DOMContentLoaded', function () {
             el.textContent = now;
         }, 25);
     });
-
 });
 
-
-// Image preview helper
+// 5. Image preview helper (Global function outside DOMContentLoaded so it can be called from HTML `onchange`)
 function previewImage(input, previewId) {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
+
         reader.onload = function (e) {
             document.getElementById(previewId).src = e.target.result;
         };
+
         reader.readAsDataURL(input.files[0]);
     }
 }
