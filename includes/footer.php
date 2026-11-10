@@ -1,4 +1,3 @@
-
 <?php
 // Footer component
 $base = $base ?? '';
@@ -24,6 +23,6 @@ $base = $base ?? '';
 
 <!-- Bootstrap Bundle and Custom Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="<?= $base ?>assets/js/main.js"></script>
+<script src="assests/js/main.js"></script>
 </body>
 </html>
