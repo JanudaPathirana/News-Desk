@@ -97,7 +97,7 @@ main {
   border: 1px solid rgba(52, 211, 153, 0.4);
 }
 
-/* Buttons */
+/*Buttons */
 .btn {
   border-radius: 50px;
   font-weight: 600;
@@ -171,7 +171,7 @@ main {
   color: var(--nsbm-navy);
 }
 
-/*Campus hero banner (HOME PAGE)*/
+/*campus hero banner*/
 .campus-banner {
   background:
     linear-gradient(135deg, rgba(7, 25, 47, 0.92) 0%, rgba(10, 34, 64, 0.85) 45%, rgba(0, 135, 81, 0.78) 100%),
@@ -210,10 +210,7 @@ main {
   margin-bottom: 12px;
 }
 
-
-
-
-/*Modern white cards and content boxes*/
+/*modern white cards and content boxes*/
 .box {
   background-color: var(--card-bg);
   border: 1px solid var(--border-color);
@@ -243,9 +240,7 @@ main {
   border-radius: 4px;
 }
 
-
-
-/* News Cards */
+/*news cards*/
 .card {
   border: 1px solid var(--border-color);
   border-radius: 18px;
@@ -306,8 +301,8 @@ main {
   padding: 6px 12px;
   font-size: 0.78rem;
 }
-/*Forms, Inputs and Tables*/
 
+/*forms, inputs and tables*/
 .form-control, .form-select {
   border-radius: 12px;
   border: 1.5px solid #cbd5e1;
@@ -353,7 +348,7 @@ main {
   color: white;
 }
 
-/*Alerts */
+/* Alerts */
 .alert {
   border-radius: 14px;
   border: 1px solid transparent;
@@ -381,7 +376,7 @@ main {
   color: #1e40af;
 }
 
-/*login and register page (auth)*/
+/*login and register pages (auth)*/
 .login-box {
   max-width: 440px;
   margin: 40px auto;
@@ -401,7 +396,6 @@ body.auth-page {
 }
 
 
-
 /*  footer - stylling layout*/
 .footer {
   background-color: var(--nsbm-navy-dark);
@@ -411,8 +405,7 @@ body.auth-page {
   border-top: 3px solid var(--green);
 }
 
-/*Admin sidebar and Dashboard*/
-
+/*admin sidebar and dashboard*/
 .sidebar {
   background-color: var(--card-bg);
   border-right: 1px solid var(--border-color);
@@ -447,6 +440,35 @@ body.auth-page {
   font-weight: 800;
   color: var(--green);
   letter-spacing: -0.03em;
+}
+
+/* Responsive & Utilities */
+@media (max-width: 576px) {
+  .campus-banner {
+    padding: 40px 24px;
+  }
+  .campus-banner h1 {
+    font-size: 1.85rem;
+  }
+  .sidebar {
+    min-height: auto;
+  }
+}
+
+@media print {
+  .no-print {
+    display: none;
+  }
+}
+
+.hover-bg {
+  transition: background 0.15s ease-in-out;
+}
+.hover-bg:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+.dropdown-item.active, .dropdown-item:active {
+  background-color: var(--green);
 }
 
 /* Page animations */
