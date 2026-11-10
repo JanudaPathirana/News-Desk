@@ -12,6 +12,10 @@ $adminTitle = $adminTitle ?? 'Dashboard';
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title><?= e($adminTitle) ?> | NewsDesk Admin</title>
+
+  <!-- Prevent Empty Favicon 404 Error -->
+  <link rel="icon" href="data:,">
+
   <!-- Google Fonts: Plus Jakarta Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
