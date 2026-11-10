@@ -57,8 +57,4 @@ require_once __DIR__ . '/../includes/navbar.php';
     <a href="../login.php" class="text-muted"><i class="bi bi-arrow-left me-1"></i>Back to Student login</a>
   </div>
 </div>
-<<<<<<< HEAD
 <?php require __DIR__ . '/../includes/footer.php'; ?>
-=======
-<?php require __DIR__ . '/../includes/footer.php'; ?>
->>>>>>> origin/main
