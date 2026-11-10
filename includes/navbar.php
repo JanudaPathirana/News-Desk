@@ -12,31 +12,31 @@ try {
     $pendingCount = 0;
 }
 
-// Admin sidebar links
+// Admin sidebar links (Using absolute paths to prevent any relative folder mixups)
 $links = [
-    'dash' => ['index.php', 'Dashboard'],
-    'articles' => ['articles.php', 'Articles'],
-    'pending' => ['pending.php', 'Pending Approvals'],
-    'featured' => ['featured.php', 'Featured / Breaking'],
-    'cats' => ['categories.php', 'Categories'],
-    'ann' => ['announcements.php', 'Announcements'],
-    'comments' => ['comments.php', 'Comments'],
-    'reports' => ['reports.php', 'Reports']
+    'dash' => ['/News-Desk/admin/index.php', 'Dashboard'],
+    'articles' => ['/News-Desk/admin/articles.php', 'Articles'],
+    'pending' => ['/News-Desk/admin/pending.php', 'Pending Approvals'],
+    'featured' => ['/News-Desk/admin/featured.php', 'Featured / Breaking'],
+    'cats' => ['/News-Desk/admin/categories.php', 'Categories'],
+    'ann' => ['/News-Desk/admin/announcements.php', 'Announcements'],
+    'comments' => ['/News-Desk/admin/comments.php', 'Comments'],
+    'reports' => ['/News-Desk/admin/reports.php', 'Reports']
 ];
 ?>
 <!-- Admin Top Navbar -->
 <nav class="navbar navbar-dark navbar-green no-print">
   <div class="container-fluid">
-    <a class="navbar-brand fw-bold" href="index.php">NSBM <span>NewsDesk</span> Admin</a>
+    <a class="navbar-brand fw-bold" href="/News-Desk/admin/index.php">NSBM <span>NewsDesk</span> Admin</a>
     <div class="d-flex align-items-center gap-2">
-      <a class="btn btn-sm btn-outline-light" href="../index.php" target="_blank">
+      <a class="btn btn-sm btn-outline-light" href="/News-Desk/index.php" target="_blank">
         <i class="bi bi-box-arrow-up-right me-1"></i>View Site
       </a>
-      <a href="../profile.php" class="d-flex align-items-center text-white text-decoration-none px-2 py-1 rounded">
-        <img src="<?= user_avatar_url(null, '../') ?>" alt="<?= e(user()['name']) ?>" width="32" height="32" class="rounded-circle border border-2 border-white me-2 shadow-sm" style="object-fit: cover;">
+      <a href="/News-Desk/profile.php" class="d-flex align-items-center text-white text-decoration-none px-2 py-1 rounded">
+        <img src="<?= user_avatar_url(null, '/News-Desk/') ?>" alt="<?= e(user()['name']) ?>" width="32" height="32" class="rounded-circle border border-2 border-white me-2 shadow-sm" style="object-fit: cover;">
         <span class="fw-semibold text-truncate" style="max-width: 140px;"><?= e(user()['name']) ?></span>
       </a>
-      <a class="btn btn-sm btn-light-green" href="../logout.php">Logout</a>
+      <a class="btn btn-sm btn-light-green" href="/News-Desk/logout.php">Logout</a>
     </div>
   </div>
 </nav>

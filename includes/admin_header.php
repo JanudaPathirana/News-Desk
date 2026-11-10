@@ -40,43 +40,43 @@ $adminTitle = $adminTitle ?? 'Dashboard';
         <h4 class="text-white py-3 px-2 border-bottom border-secondary">Admin Panel</h4>
         <ul class="nav flex-column gap-1 pt-2">
           <li class="nav-item">
-            <a class="nav-link text-white d-flex align-items-center gap-2" href="index.php">
+            <a class="nav-link text-white d-flex align-items-center gap-2" href="/News-Desk/admin/index.php">
               <i class="bi bi-speedometer2"></i> Dashboard
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-white d-flex align-items-center gap-2" href="articles.php">
+            <a class="nav-link text-white d-flex align-items-center gap-2" href="/News-Desk/admin/articles.php">
               <i class="bi bi-file-text"></i> Articles
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-white d-flex align-items-center gap-2" href="pending.php">
+            <a class="nav-link text-white d-flex align-items-center gap-2" href="/News-Desk/admin/pending.php">
               <i class="bi bi-hourglass-split"></i> Pending Approvals
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-white d-flex align-items-center gap-2" href="categories.php">
+            <a class="nav-link text-white d-flex align-items-center gap-2" href="/News-Desk/admin/categories.php">
               <i class="bi bi-tags"></i> Categories
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-white d-flex align-items-center gap-2" href="announcements.php">
+            <a class="nav-link text-white d-flex align-items-center gap-2" href="/News-Desk/admin/announcements.php">
               <i class="bi bi-megaphone"></i> Announcements
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-white d-flex align-items-center gap-2" href="comments.php">
+            <a class="nav-link text-white d-flex align-items-center gap-2" href="/News-Desk/admin/comments.php">
               <i class="bi bi-chat-dots"></i> Comments
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-white d-flex align-items-center gap-2" href="reports.php">
+            <a class="nav-link text-white d-flex align-items-center gap-2" href="/News-Desk/admin/reports.php">
               <i class="bi bi-graph-up"></i> Reports
             </a>
           </li>
           <hr class="border-secondary my-3">
           <li class="nav-item">
-            <a class="nav-link text-danger d-flex align-items-center gap-2" href="../index.php">
+            <a class="nav-link text-danger d-flex align-items-center gap-2" href="/News-Desk/index.php">
               <i class="bi bi-box-arrow-left"></i> Exit to Site
             </a>
           </li>
