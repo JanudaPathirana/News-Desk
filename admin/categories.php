@@ -20,7 +20,7 @@ require_once __DIR__ . '/../includes/admin_navbar.php';
 $cats = $pdo->query('SELECT * FROM categories ORDER BY name')->fetchAll();
 ?>
 <div class="col-md-10 py-3">
-  <h3>Manage Categories</h3>
+  <h3>Manage Categories &bull; <small class="text-muted fs-6">Safe Deletion Enabled</small></h3>
   <form method="post" class="box mb-4">
     <?= csrf_field() ?>
     <div class="input-group">
