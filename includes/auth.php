@@ -60,7 +60,7 @@ function img_url($name, $base = '') {
     if ($name) {
         return $base . 'assets/uploads/' . e($name);
     }
-    return $base . 'assets/img/placeholder.svg';
+    return $base . 'assests/img/placeholder.svg';
 }
 
 // ---------- login checks ----------
@@ -82,7 +82,7 @@ function is_admin() {
 function require_login() {
     if (!is_logged_in()) {
         flash('warning', 'Please log in first.');
-        redirect('login.php');
+        redirect('/News-Desk/login.php');
     }
 }
 
@@ -90,7 +90,7 @@ function require_login() {
 function require_admin() {
     if (!is_admin()) {
         flash('danger', 'Only admins can open this page.');
-        redirect('login.php');
+        redirect('/News-Desk/admin/login.php');
     }
 }
 
@@ -132,7 +132,7 @@ function user_avatar_url($userObj = null, $base = '') {
             return $base . 'assets/uploads/' . e($u['profile_photo']);
         }
     }
-    return $base . 'assets/img/default-avatar.svg';
+    return $base . 'assests/img/default-avatar.svg';
 }
 
 // ---------- flash messages (alerts shown once) ----------

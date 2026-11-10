@@ -1,5 +1,9 @@
 <?php
 require_once __DIR__ . '/includes/auth.php';
+
+// Require login — redirect unauthenticated users to the login page
+require_login();
+
 require_once __DIR__ . '/includes/card.php';
 
 $st = $pdo->query("SELECT a.id, a.title, a.body, a.image, a.created_at, a.views, a.is_breaking, c.name AS cat
