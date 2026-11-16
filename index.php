@@ -44,5 +44,8 @@ require_once __DIR__ . '/includes/navbar.php';
     <div class="col-12"><h3 class="fw-bold mb-1">Latest Campus News</h3></div>
     <?php foreach ($latest as $a): news_card($a); endforeach; ?>
   </div>
+  <div class="row mt-5">
+    <div class="col-12"><div class="box p-4 bg-light"><h4 class="fw-bold"><i class="bi bi-megaphone me-2 text-success"></i>Campus Announcements</h4><p class="text-muted">Important notices for students will be listed here.</p></div></div>
+  </div>
 </main>
 <?php require_once __DIR__ . '/includes/footer.php'; ?>

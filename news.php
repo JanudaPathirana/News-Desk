@@ -22,7 +22,7 @@ if ($cat > 0) {
 
 $st = $pdo->prepare("SELECT a.id, a.title, a.body, a.image, a.created_at, a.views, a.is_breaking, c.name AS cat
                      FROM articles a JOIN categories c ON c.id = a.category_id
-                     WHERE $where ORDER BY a.created_at DESC");
+                     WHERE $where ORDER BY a.created_at DESC LIMIT 12");
 $st->execute($params);
 $rows = $st->fetchAll();
 $cats = all_categories();
