@@ -69,8 +69,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         if ($newPassword !== '') {
+            $hash = password_hash($newPassword, PASSWORD_DEFAULT);
             $pdo->prepare('UPDATE users SET name = ?, student_id = ?, email = ?, password_hash = ?, profile_photo = ? WHERE id = ?')
-                ->execute([$name, $studentId, $email, $newPassword, $photoToSave, $uid]);
+                ->execute([$name, $studentId, $email, $hash, $photoToSave, $uid]);
         } else {
             $pdo->prepare('UPDATE users SET name = ?, student_id = ?, email = ?, profile_photo = ? WHERE id = ?')
                 ->execute([$name, $studentId, $email, $photoToSave, $uid]);
@@ -146,8 +147,8 @@ require_once __DIR__ . '/includes/navbar.php';
 
         <div class="mb-4">
           <label class="form-label fw-bold" for="password">Change Password</label>
-          <input class="form-control" id="password" name="password" type="text" placeholder="Leave empty to keep current password">
-          <div class="form-text">Type a new normal text password if you wish to change it (e.g. <code>123456</code>).</div>
+          <input class="form-control" id="password" name="password" type="password" placeholder="Leave empty to keep current password">
+          <div class="form-text">Type a new password if you wish to change it (min. 6 characters).</div>
         </div>
 
         <div class="d-flex justify-content-between align-items-center">

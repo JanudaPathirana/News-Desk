@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $st->execute([$email]);
     $u = $st->fetch();
 
-    if ($u && ($password === $u['password_hash'] || password_verify($password, $u['password_hash']))) {
+    if ($u && password_verify($password, $u['password_hash'])) {
         login_user($u);
         flash('success', 'Welcome back, ' . $u['name'] . '!');
         redirect($u['role'] == 'admin' ? 'admin/index.php' : 'index.php');

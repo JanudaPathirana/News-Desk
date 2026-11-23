@@ -40,10 +40,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
     }
 
-    // save the new user (stored as normal plain text)
+    // save the new user (password is hashed with bcrypt)
     if (!$errors) {
+        $hash = password_hash($pw, PASSWORD_DEFAULT);
         $pdo->prepare("INSERT INTO users (name, student_id, email, password_hash, role) VALUES (?, ?, ?, ?, 'student')")
-            ->execute([$old['name'], $old['sid'], $old['email'], $pw]);
+            ->execute([$old['name'], $old['sid'], $old['email'], $hash]);
         flash('success', 'Account created. You can login now.');
         redirect('login.php');
     }
