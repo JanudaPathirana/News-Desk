@@ -15,19 +15,34 @@ $hero = $pdo->query("SELECT a.*, c.name AS cat FROM articles a
                      ORDER BY a.is_breaking DESC, a.is_featured DESC, a.created_at DESC LIMIT 1")->fetch();
 
 // latest 3 announcements
-$anns = $pdo->query("SELECT * FROM announcements WHERE is_active = 1 ORDER BY created_at DESC LIMIT 3")->fetchAll();
+try {
+    $anns = $pdo->query("SELECT * FROM announcements WHERE is_active = 1 ORDER BY created_at DESC LIMIT 3")->fetchAll();
+} catch (Exception $e) {
+    $anns = [];
+}
 
 // latest news (subscribed categories come first)
 $uid = user()['id'] ?? 0;
-$st = $pdo->prepare("SELECT a.id, a.title, a.body, a.image, a.created_at, a.views, a.is_breaking, c.name AS cat,
-                            (s.user_id IS NOT NULL) AS subscribed
-                     FROM articles a
-                     JOIN categories c ON c.id = a.category_id
-                     LEFT JOIN subscriptions s ON s.category_id = a.category_id AND s.user_id = ?
-                     WHERE a.status = 'approved' AND a.id <> ?
-                     ORDER BY subscribed DESC, a.created_at DESC LIMIT 6");
-$st->execute([$uid, $hero['id'] ?? 0]);
-$latest = $st->fetchAll();
+try {
+    $st = $pdo->prepare("SELECT a.id, a.title, a.body, a.image, a.created_at, a.views, a.is_breaking, c.name AS cat,
+                                (s.user_id IS NOT NULL) AS subscribed
+                         FROM articles a
+                         JOIN categories c ON c.id = a.category_id
+                         LEFT JOIN subscriptions s ON s.category_id = a.category_id AND s.user_id = ?
+                         WHERE a.status = 'approved' AND a.id <> ?
+                         ORDER BY subscribed DESC, a.created_at DESC LIMIT 6");
+    $st->execute([$uid, $hero['id'] ?? 0]);
+    $latest = $st->fetchAll();
+} catch (Exception $e) {
+    // Fallback: query without subscriptions join
+    $st = $pdo->prepare("SELECT a.id, a.title, a.body, a.image, a.created_at, a.views, a.is_breaking, c.name AS cat
+                         FROM articles a
+                         JOIN categories c ON c.id = a.category_id
+                         WHERE a.status = 'approved' AND a.id <> ?
+                         ORDER BY a.created_at DESC LIMIT 6");
+    $st->execute([$hero['id'] ?? 0]);
+    $latest = $st->fetchAll();
+}
 
 // categories with article count
 $cats = $pdo->query("SELECT c.id, c.name, COUNT(a.id) AS total FROM categories c

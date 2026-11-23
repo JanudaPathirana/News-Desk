@@ -5,26 +5,52 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 require_once __DIR__ . '/../config/db.php';
 
-// Automatic schema & sample images update
+// Automatic schema migration — create missing tables and columns safely
 try {
+    // Ensure profile_photo column exists on users
     $hasPhotoCol = $pdo->query("SHOW COLUMNS FROM users LIKE 'profile_photo'")->fetch();
     if (!$hasPhotoCol) {
         $pdo->exec("ALTER TABLE users ADD COLUMN profile_photo VARCHAR(255) NULL DEFAULT NULL AFTER role");
     }
-    // Update existing sample articles with real NSBM campus photos
-    $sampleImgs = [
-        1 => 'nsbm_exam.jpg',
-        2 => 'nsbm_greenfest.jpg',
-        3 => 'nsbm_cricket.jpg',
-        4 => 'nsbm_library.jpg',
-        5 => 'nsbm_computing.jpg',
-        6 => 'nsbm_hostel.jpg'
-    ];
-    foreach ($sampleImgs as $artId => $imgName) {
-        $pdo->prepare("UPDATE articles SET image = ? WHERE id = ? AND (image IS NULL OR image = '')")->execute([$imgName, $artId]);
-    }
+
+    // Create missing tables if they don't exist
+    $pdo->exec("CREATE TABLE IF NOT EXISTS comments (
+        id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+        article_id INT UNSIGNED NOT NULL,
+        user_id INT UNSIGNED NOT NULL,
+        body TEXT NOT NULL,
+        status ENUM('visible','hidden') NOT NULL DEFAULT 'visible',
+        created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        CONSTRAINT fk_com_art FOREIGN KEY (article_id) REFERENCES articles(id) ON DELETE CASCADE,
+        CONSTRAINT fk_com_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
+
+    $pdo->exec("CREATE TABLE IF NOT EXISTS announcements (
+        id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+        title VARCHAR(200) NOT NULL,
+        body TEXT NOT NULL,
+        is_active TINYINT(1) NOT NULL DEFAULT 1,
+        created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
+
+    $pdo->exec("CREATE TABLE IF NOT EXISTS subscriptions (
+        user_id INT UNSIGNED NOT NULL,
+        category_id INT UNSIGNED NOT NULL,
+        PRIMARY KEY (user_id, category_id),
+        CONSTRAINT fk_sub_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+        CONSTRAINT fk_sub_cat FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE CASCADE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
+
+    $pdo->exec("CREATE TABLE IF NOT EXISTS bookmarks (
+        user_id INT UNSIGNED NOT NULL,
+        article_id INT UNSIGNED NOT NULL,
+        created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        PRIMARY KEY (user_id, article_id),
+        CONSTRAINT fk_bm_user FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+        CONSTRAINT fk_bm_art FOREIGN KEY (article_id) REFERENCES articles(id) ON DELETE CASCADE
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
 } catch (Exception $e) {
-    // Fail silently if DB is in another state
+    // Fail silently if DB is in another state (e.g. articles table not yet created)
 }
 
 // escape text before showing it

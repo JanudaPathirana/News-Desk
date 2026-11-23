@@ -1,1 +1,22 @@
+# OS files
 .DS_Store
+Thumbs.db
+Desktop.ini
+
+# IDE / Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Uploaded files (user-generated content)
+assets/uploads/*
+!assets/uploads/.gitkeep
+
+# PHP error logs
+php_error_log
+*.log
+
+# Local config (optional — uncomment if you use a separate local config)
+# config/db.local.php

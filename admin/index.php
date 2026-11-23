@@ -9,7 +9,11 @@ require_once __DIR__ . '/../includes/admin_navbar.php';
 
 // small function to get one number from the database
 function count_rows($pdo, $sql) {
-    return (int)$pdo->query($sql)->fetchColumn();
+    try {
+        return (int)$pdo->query($sql)->fetchColumn();
+    } catch (Exception $e) {
+        return 0;
+    }
 }
 
 $stats = [
@@ -31,10 +35,14 @@ $top = $pdo->query("SELECT id, title, views FROM articles WHERE status = 'approv
 $maxViews = max(1, (int)($top[0]['views'] ?? 1));
 
 // latest comments
-$recent = $pdo->query("SELECT m.body, m.created_at, u.name, a.title, a.id AS aid FROM comments m
-                       JOIN users u ON u.id = m.user_id
-                       JOIN articles a ON a.id = m.article_id
-                       ORDER BY m.created_at DESC LIMIT 5")->fetchAll();
+try {
+    $recent = $pdo->query("SELECT m.body, m.created_at, u.name, a.title, a.id AS aid FROM comments m
+                           JOIN users u ON u.id = m.user_id
+                           JOIN articles a ON a.id = m.article_id
+                           ORDER BY m.created_at DESC LIMIT 5")->fetchAll();
+} catch (Exception $e) {
+    $recent = [];
+}
 ?>
 <div class="row g-3 mb-4">
   <?php foreach ($stats as $label => $number): ?>
