@@ -4,45 +4,76 @@ require_once __DIR__ . '/includes/auth.php';
 require_login();
 
 $cats = all_categories();
+$validCatIds = array_map('intval', array_column($cats, 'id'));
 
-$f = ['title' => '', 'body' => '', 'cat' => 0];
+$f = [
+    'title' => '',
+    'body'  => '',
+    'cat'   => 0,
+];
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     csrf_check();
-    $f = [
-        'title' => post('title'),
-        'body'  => post('body'),
-        'cat'   => (int)($_POST['category_id'] ?? 0)
-    ];
-    $errors = [];
 
-    if (mb_strlen($f['title']) < 10 || mb_strlen($f['title']) > 200) {
+    $f = [
+        'title' => trim((string)post('title')),
+        'body'  => trim((string)post('body')),
+        'cat'   => (int)($_POST['category_id'] ?? 0),
+    ];
+
+    $errors = [];
+    $img = null;
+    $imgError = null;
+
+    $titleLen = mb_strlen($f['title']);
+    $bodyLen  = mb_strlen($f['body']);
+
+    if ($titleLen < 10 || $titleLen > 200) {
         $errors[] = 'Headline must be 10 to 200 characters.';
     }
-    if (mb_strlen($f['body']) < 50) {
+    if ($bodyLen < 50) {
         $errors[] = 'Article text must be at least 50 characters.';
     }
-    if (!in_array($f['cat'], array_map('intval', array_column($cats, 'id')))) {
+    if (!in_array($f['cat'], $validCatIds, true)) {
         $errors[] = 'Please choose a category.';
     }
 
-    $img = save_image($_FILES['image'] ?? null, $imgError);
-    if ($imgError) {
-        $errors[] = $imgError;
+    if (!empty($_FILES['image']['name'])) {
+        $img = save_image($_FILES['image'], $imgError);
+        if ($imgError) {
+            $errors[] = $imgError;
+        }
     }
 
     if (!$errors) {
-        $pdo->prepare('INSERT INTO articles (title, body, category_id, author_id, status, image) VALUES (?, ?, ?, ?, ?, ?)')
-            ->execute([$f['title'], $f['body'], $f['cat'], user()['id'], 'pending', $img]);
-        flash('success', 'Your article has been submitted and is awaiting admin approval.');
-        redirect('news.php');
-    }
+        try {
+            $stmt = $pdo->prepare(
+                'INSERT INTO articles (title, body, category_id, author_id, status, image) VALUES (?, ?, ?, ?, ?, ?)'
+            );
+            $stmt->execute([
+                $f['title'],
+                $f['body'],
+                $f['cat'],
+                (int)user()['id'],
+                'pending',
+                $img,
+            ]);
 
-    if ($img) {
-        delete_image($img);
-    }
-    foreach ($errors as $err) {
-        flash('danger', $err);
+            flash('success', 'Your article has been submitted and is awaiting admin approval.');
+            redirect('news.php');
+        } catch (Throwable $e) {
+            if ($img && function_exists('delete_image')) {
+                delete_image($img);
+            }
+            flash('danger', 'Failed to submit article. Please try again.');
+        }
+    } else {
+        if ($img && function_exists('delete_image')) {
+            delete_image($img);
+        }
+        foreach ($errors as $err) {
+            flash('danger', $err);
+        }
     }
 }
 
@@ -73,7 +104,8 @@ require_once __DIR__ . '/includes/navbar.php';
           <select class="form-select" id="cat" name="category_id" required>
             <option value="">Choose a category...</option>
             <?php foreach ($cats as $c): ?>
-              <option value="<?= (int)$c['id'] ?>" <?= $f['cat'] == $c['id'] ? 'selected' : '' ?>><?= e($c['name']) ?></option>
+              <?php $cid = (int)$c['id']; ?>
+              <option value="<?= $cid ?>" <?= $f['cat'] === $cid ? 'selected' : '' ?>><?= e($c['name']) ?></option>
             <?php endforeach; ?>
           </select>
         </div>
@@ -87,10 +119,10 @@ require_once __DIR__ . '/includes/navbar.php';
         </div>
         <div class="d-flex justify-content-between align-items-center">
           <a href="news.php" class="btn btn-outline-secondary">Cancel</a>
-          <button class="btn btn-green px-4 py-2 shadow-sm"><i class="bi bi-send me-1"></i>Submit for Review</button>
+          <button type="submit" class="btn btn-green px-4 py-2 shadow-sm"><i class="bi bi-send me-1"></i>Submit for Review</button>
         </div>
       </form>
     </div>
   </div>
 </div>
-<?php require __DIR__ . '/includes/footer.php'; ?>
+<?php require_once __DIR__ . '/includes/footer.php'; ?>
