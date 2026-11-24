@@ -1,8 +1,3 @@
--- =================================================================
--- NSBM NewsDesk — Full Database Schema & Seed Data
--- Faculty of Computing | Web & Mobile Application Development
--- Batch 26.1 IFSL
--- =================================================================
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
@@ -17,9 +12,8 @@ DROP TABLE IF EXISTS users;
 
 SET FOREIGN_KEY_CHECKS = 1;
 
--- =========================
+
 -- Users Table
--- =========================
 CREATE TABLE users (
   id            INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   name          VARCHAR(100) NOT NULL,
@@ -31,17 +25,15 @@ CREATE TABLE users (
   created_at    TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- =========================
+
 -- Categories table
--- =========================
 CREATE TABLE categories (
   id   INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(60) NOT NULL UNIQUE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- =========================
+
 -- Articles table
--- =========================
 CREATE TABLE articles (
   id          INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   title       VARCHAR(200) NOT NULL,
@@ -60,9 +52,8 @@ CREATE TABLE articles (
   CONSTRAINT fk_art_user FOREIGN KEY (author_id)   REFERENCES users(id)      ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- =========================
+
 -- Bookmarks table
--- =========================
 CREATE TABLE bookmarks (
   user_id    INT UNSIGNED NOT NULL,
   article_id INT UNSIGNED NOT NULL,
@@ -72,9 +63,8 @@ CREATE TABLE bookmarks (
   CONSTRAINT fk_bm_art  FOREIGN KEY (article_id) REFERENCES articles(id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- =========================
+
 -- Comments table
--- =========================
 CREATE TABLE comments (
   id         INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   article_id INT UNSIGNED NOT NULL,
@@ -86,9 +76,8 @@ CREATE TABLE comments (
   CONSTRAINT fk_com_user FOREIGN KEY (user_id)    REFERENCES users(id)    ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- =========================
+
 -- Announcements table
--- =========================
 CREATE TABLE announcements (
   id         INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
   title      VARCHAR(200) NOT NULL,
@@ -97,9 +86,8 @@ CREATE TABLE announcements (
   created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- =========================
+
 -- Subscriptions table
--- =========================
 CREATE TABLE subscriptions (
   user_id     INT UNSIGNED NOT NULL,
   category_id INT UNSIGNED NOT NULL,
@@ -109,17 +97,7 @@ CREATE TABLE subscriptions (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
--- =================================================================
--- SEED DATA
--- =================================================================
-
--- Users (passwords hashed with password_hash('...', PASSWORD_DEFAULT))
--- Admin:   admin@nsbm.ac.lk / admin123
--- Student: kasun@students.nsbm.ac.lk / password123
--- Student: nimali@students.nsbm.ac.lk / password123
--- Student: tharindu@students.nsbm.ac.lk / password123
--- Student: ishara@students.nsbm.ac.lk / password123
-
+-- Sample Data Insertion
 INSERT INTO users (id, name, student_id, email, password_hash, role) VALUES
 (1, 'NewsDesk Admin',   'ADMIN001', 'admin@nsbm.ac.lk',
   '$2y$10$WAJ0flu05QpVAiGIyg5ALugSxAqFei5czoIyVzEj9qnKGYDfJzJLG', 'admin'),
@@ -136,9 +114,8 @@ INSERT INTO users (id, name, student_id, email, password_hash, role) VALUES
 INSERT INTO categories (id, name) VALUES
 (1, 'Academic'), (2, 'Events'), (3, 'Sports'), (4, 'General'), (5, 'Clubs');
 
--- ============================
+
 -- Sample Articles (approved)
--- ============================
 INSERT INTO articles (id, title, body, category_id, author_id, status, is_featured, is_breaking, views, created_at) VALUES
 
 (1, 'NSBM Final Examination Timetable Released for Semester 2',
@@ -165,9 +142,8 @@ INSERT INTO articles (id, title, body, category_id, author_id, status, is_featur
 'NSBM Green University has completed a comprehensive upgrade of its on-campus hostel facilities, with renovated rooms now available for the January 2026 intake. The upgrade includes modernised bathroom facilities, air conditioning in all rooms, new furniture, and improved common areas.\n\nThe hostel can now accommodate up to 350 students across single and twin-sharing rooms. New amenities include a fully equipped gymnasium, a rooftop recreational area, a laundry facility with self-service machines, and a mini supermarket on the ground floor.\n\nMonthly rates remain unchanged, with single rooms at LKR 35,000 and twin-sharing rooms at LKR 22,000 per person (inclusive of utilities). Priority will be given to students from outside the Western Province and international students.\n\nApplications for hostel accommodation are now open through the Student Portal. The deadline for the January intake is December 20th, 2025.\n\n"We want our students to feel at home while they pursue their education," said Student Affairs Director Mr. Pradeep Wickramasinghe. "These upgrades reflect our commitment to providing a comfortable and supportive living environment."',
 4, 3, 'approved', 0, 0, 156, '2025-11-23 16:45:00');
 
--- ============================
+
 -- Pending article (for testing approval workflow)
--- ============================
 INSERT INTO articles (id, title, body, category_id, author_id, status, views, created_at) VALUES
 
 (7, 'Computing Society — Workshop on Cloud Computing with AWS',
@@ -178,9 +154,8 @@ INSERT INTO articles (id, title, body, category_id, author_id, status, views, cr
 'The NSBM Photography Club is looking for enthusiastic new members for the 2026 academic year. Whether you are a seasoned photographer or just starting out with your smartphone, the club welcomes everyone who has a passion for visual storytelling.\n\nMembership benefits include access to the club''s equipment (including DSLR cameras and lenses), weekly photo walks around campus and nearby locations, monthly competitions with prizes, and guidance from professional photographers who serve as club mentors.\n\nThe membership fee for 2026 is LKR 1,000, which includes a club T-shirt and access to all events. Interested students can fill out the membership form available at the Student Union office or message the club''s Facebook page.\n\nAn introductory meeting will be held on December 5th at 3:00 PM in Room B201. All are welcome!',
 4, 5, 'pending', 0, '2025-11-24 09:30:00');
 
--- ============================
+
 -- Announcements
--- ============================
 INSERT INTO announcements (id, title, body, is_active, created_at) VALUES
 (1, 'Library Notice: Extended Hours During Exam Period',
 'The NSBM library will operate on extended hours (7:00 AM — 11:00 PM) from November 25th through December 15th to support students during the examination period. The 24/7 study zone remains open as usual.',
@@ -194,9 +169,8 @@ INSERT INTO announcements (id, title, body, is_active, created_at) VALUES
 'NSBM Green University will be closed on December 15th (Monday) for the Unduvap Poya public holiday. Regular operations will resume on December 16th. Students with examination queries should email studentaffairs@nsbm.ac.lk.',
 1, '2025-11-23 14:00:00');
 
--- ============================
+
 -- Comments
--- ============================
 INSERT INTO comments (article_id, user_id, body, status, created_at) VALUES
 (1, 2, 'Thanks for sharing the timetable! Time to start revising. Good luck everyone!', 'visible', '2025-11-15 12:30:00'),
 (1, 3, 'Does anyone know if the WAD exam will be open-book? The notice doesn''t mention it.', 'visible', '2025-11-16 09:00:00'),
@@ -209,14 +183,10 @@ INSERT INTO comments (article_id, user_id, body, status, created_at) VALUES
 (5, 5, 'An AI specialisation is exactly what we needed! Definitely switching to this track.', 'visible', '2025-11-22 12:00:00'),
 (5, 3, 'Dr. Rajapakse''s courses are excellent. This specialisation will be top notch.', 'visible', '2025-11-22 15:30:00');
 
--- ============================
 -- Bookmarks
--- ============================
 INSERT INTO bookmarks (user_id, article_id) VALUES
 (2, 1), (2, 5), (3, 2), (3, 3), (4, 2), (4, 5), (5, 1), (5, 4);
 
--- ============================
 -- Subscriptions
--- ============================
 INSERT INTO subscriptions (user_id, category_id) VALUES
 (2, 1), (2, 3), (3, 2), (3, 4), (4, 1), (4, 2), (5, 3), (5, 4);
