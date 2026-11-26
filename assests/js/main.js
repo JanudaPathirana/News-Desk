@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 // 5. Image preview helper (Global function outside DOMContentLoaded so it can be called from HTML `onchange`)
-function previewImage(input, previewId) {
+function previewImage(input, previewId = 'avatar-preview') {
     if (input.files && input.files[0]) {
         var reader = new FileReader();
 

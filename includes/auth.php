@@ -54,22 +54,26 @@ try {
 }
 
 // escape text before showing it
-function e($text) {
+function e($text)
+{
     return htmlspecialchars((string)$text, ENT_QUOTES, 'UTF-8');
 }
 
-function redirect($url) {
+function redirect($url)
+{
     header('Location: ' . $url);
     exit;
 }
 
 // get a post value without extra spaces
-function post($key) {
+function post($key)
+{
     return trim($_POST[$key] ?? '');
 }
 
 // short version of the article text
-function excerpt($text, $length = 140) {
+function excerpt($text, $length = 140)
+{
     $text = trim(strip_tags($text));
     if (mb_strlen($text) > $length) {
         return mb_substr($text, 0, $length) . '...';
@@ -77,12 +81,14 @@ function excerpt($text, $length = 140) {
     return $text;
 }
 
-function fmt_date($date) {
+function fmt_date($date)
+{
     return date('d M Y', strtotime($date));
 }
 
 // if no image uploaded use the placeholder
-function img_url($name, $base = '') {
+function img_url($name, $base = '')
+{
     if ($name) {
         return $base . 'assets/uploads/' . e($name);
     }
@@ -90,22 +96,26 @@ function img_url($name, $base = '') {
 }
 
 // ---------- login checks ----------
-function is_logged_in() {
+function is_logged_in()
+{
     return !empty($_SESSION['user']);
 }
 
-function user() {
+function user()
+{
     if (!empty($_SESSION['user']) && !array_key_exists('profile_photo', $_SESSION['user'])) {
         refresh_user_session();
     }
     return $_SESSION['user'] ?? null;
 }
 
-function is_admin() {
+function is_admin()
+{
     return is_logged_in() && $_SESSION['user']['role'] == 'admin';
 }
 
-function require_login() {
+function require_login()
+{
     if (!is_logged_in()) {
         flash('warning', 'Please log in first.');
         redirect('/News-Desk/login.php');
@@ -113,14 +123,16 @@ function require_login() {
 }
 
 // used in all admin pages (except admin/login.php)
-function require_admin() {
+function require_admin()
+{
     if (!is_admin()) {
         flash('danger', 'Only admins can open this page.');
         redirect('/News-Desk/admin/login.php');
     }
 }
 
-function login_user($row) {
+function login_user($row)
+{
     session_regenerate_id(true);
     $_SESSION['user'] = [
         'id' => (int)$row['id'],
@@ -132,7 +144,8 @@ function login_user($row) {
     ];
 }
 
-function refresh_user_session() {
+function refresh_user_session()
+{
     global $pdo;
     if (!is_logged_in()) {
         return null;
@@ -150,7 +163,8 @@ function refresh_user_session() {
     return $_SESSION['user'];
 }
 
-function user_avatar_url($userObj = null, $base = '') {
+function user_avatar_url($userObj = null, $base = '')
+{
     $u = $userObj ?? user();
     if ($u && !empty($u['profile_photo'])) {
         $path = __DIR__ . '/../assets/uploads/' . $u['profile_photo'];
@@ -162,29 +176,34 @@ function user_avatar_url($userObj = null, $base = '') {
 }
 
 // ---------- flash messages (alerts shown once) ----------
-function flash($type, $message) {
+function flash($type, $message)
+{
     $_SESSION['flash'][] = [$type, $message];
 }
 
-function get_flash() {
+function get_flash()
+{
     $list = $_SESSION['flash'] ?? [];
     unset($_SESSION['flash']);
     return $list;
 }
 
 // ---------- csrf token for forms ----------
-function csrf_token() {
+function csrf_token()
+{
     if (empty($_SESSION['csrf'])) {
         $_SESSION['csrf'] = bin2hex(random_bytes(16));
     }
     return $_SESSION['csrf'];
 }
 
-function csrf_field() {
+function csrf_field()
+{
     return '<input type="hidden" name="csrf" value="' . csrf_token() . '">';
 }
 
-function csrf_check() {
+function csrf_check()
+{
     if (($_POST['csrf'] ?? '') !== ($_SESSION['csrf'] ?? 'none')) {
         die('Form token is not valid. Go back and try again.');
     }
@@ -192,7 +211,8 @@ function csrf_check() {
 
 // ---------- image upload ----------
 // returns the new file name, or null if no file / error
-function save_image($file, &$error) {
+function save_image($file, &$error)
+{
     $error = '';
     if (!$file || $file['error'] == UPLOAD_ERR_NO_FILE) {
         return null;
@@ -201,8 +221,8 @@ function save_image($file, &$error) {
         $error = 'Image upload failed.';
         return null;
     }
-    if ($file['size'] > 2 * 1024 * 1024) {
-        $error = 'Image must be less than 2MB.';
+    if ($file['size'] > 10 * 1024 * 1024) {
+        $error = 'Image must be less than 10MB.';
         return null;
     }
     // check the real file type, not only the extension
@@ -213,15 +233,23 @@ function save_image($file, &$error) {
         $error = 'Only jpg, png, webp or gif images are allowed.';
         return null;
     }
+
+    $uploadDir = __DIR__ . '/../assets/uploads/';
+    if (!is_dir($uploadDir)) {
+        mkdir($uploadDir, 0775, true);
+    }
+
+
     $name = bin2hex(random_bytes(8)) . '.' . $types[$mime];
-    if (!move_uploaded_file($file['tmp_name'], __DIR__ . '/../assets/uploads/' . $name)) {
+    if (!move_uploaded_file($file['tmp_name'], $uploadDir . $name)) {
         $error = 'Could not save the image.';
         return null;
     }
     return $name;
 }
 
-function delete_image($name) {
+function delete_image($name)
+{
     if ($name) {
         $path = __DIR__ . '/../assets/uploads/' . basename($name);
         if (is_file($path)) {
@@ -231,13 +259,15 @@ function delete_image($name) {
 }
 
 // ---------- other small helpers ----------
-function all_categories() {
+function all_categories()
+{
     global $pdo;
     return $pdo->query('SELECT id, name FROM categories ORDER BY name')->fetchAll();
 }
 
 // colored badge for status
-function status_badge($status) {
+function status_badge($status)
+{
     $colors = ['approved' => 'success', 'pending' => 'warning', 'rejected' => 'danger', 'visible' => 'success', 'hidden' => 'secondary'];
     $color = $colors[$status] ?? 'secondary';
     return '<span class="badge bg-' . $color . '">' . e(ucfirst($status)) . '</span>';

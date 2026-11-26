@@ -71,6 +71,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 if ($newPassword !== '') {
             $pdo->prepare('UPDATE users SET name = ?, student_id = ?, email = ?, password_hash = ?, profile_photo = ? WHERE id = ?')
                 ->execute([$name, $studentId, $email, $newPassword, $photoToSave, $uid]);
+        } else {
+            $pdo->prepare('UPDATE users SET name = ?, student_id = ?, email = ?, profile_photo = ? WHERE id = ?')
+                ->execute([$name, $studentId, $email, $photoToSave, $uid]);
         }
 
         refresh_user_session();
@@ -119,7 +122,7 @@ require_once __DIR__ . '/includes/navbar.php';
         <div class="mb-4">
           <label class="form-label fw-bold" for="profile_photo">Change Profile Photo</label>
           <input class="form-control" type="file" id="profile_photo" name="profile_photo" accept="image/jpeg,image/png,image/webp" onchange="previewImage(this)">
-          <div class="form-text">Upload a JPG, PNG, or WebP photo (Max 2MB). A square photo works best.</div>
+          <div class="form-text">Upload a JPG, PNG, or WebP photo (Max 10MB). A square photo works best.</div>
         </div>
 
         <div class="row g-3 mb-3">
