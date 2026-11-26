@@ -40,7 +40,7 @@ $base = $base ?? '';
   </div>
 </nav>
 
-<main class="container my-4">
+<main class="container my-4 flex-grow-1">
   <!-- Flash messages -->
   <?php foreach (get_flash() as $f): ?>
     <?php

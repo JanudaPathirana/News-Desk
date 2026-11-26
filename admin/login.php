@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $st->execute([$email]);
     $u = $st->fetch();
 
-    if ($u && password_verify($password, $u['password_hash'])) {
+        if ($u && $password === $u['password_hash']) {
         login_user($u);
         flash('success', 'Welcome to the admin panel, ' . $u['name'] . '.');
         redirect('index.php');

@@ -68,13 +68,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             delete_image($currentUser['profile_photo']);
         }
 
-        if ($newPassword !== '') {
-            $hash = password_hash($newPassword, PASSWORD_DEFAULT);
+                if ($newPassword !== '') {
             $pdo->prepare('UPDATE users SET name = ?, student_id = ?, email = ?, password_hash = ?, profile_photo = ? WHERE id = ?')
-                ->execute([$name, $studentId, $email, $hash, $photoToSave, $uid]);
-        } else {
-            $pdo->prepare('UPDATE users SET name = ?, student_id = ?, email = ?, profile_photo = ? WHERE id = ?')
-                ->execute([$name, $studentId, $email, $photoToSave, $uid]);
+                ->execute([$name, $studentId, $email, $newPassword, $photoToSave, $uid]);
         }
 
         refresh_user_session();

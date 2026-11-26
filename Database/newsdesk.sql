@@ -100,15 +100,15 @@ CREATE TABLE subscriptions (
 -- Sample Data Insertion
 INSERT INTO users (id, name, student_id, email, password_hash, role) VALUES
 (1, 'NewsDesk Admin',   'ADMIN001', 'admin@nsbm.ac.lk',
-  '$2y$10$WAJ0flu05QpVAiGIyg5ALugSxAqFei5czoIyVzEj9qnKGYDfJzJLG', 'admin'),
+  'admin123', 'admin'),
 (2, 'Kasun Perera',     'ST10001',  'kasun@students.nsbm.ac.lk',
-  '$2y$10$XKcGj1yFKq1J9Q5jKf3TOeXjKVa7fJFOQ8V6R4RJz3L5J6xmyDjKa', 'student'),
+  'student123', 'student'),
 (3, 'Nimali Silva',     'ST10002',  'nimali@students.nsbm.ac.lk',
-  '$2y$10$XKcGj1yFKq1J9Q5jKf3TOeXjKVa7fJFOQ8V6R4RJz3L5J6xmyDjKa', 'student'),
+  'student123', 'student'),
 (4, 'Tharindu Bandara', 'ST10003',  'tharindu@students.nsbm.ac.lk',
-  '$2y$10$XKcGj1yFKq1J9Q5jKf3TOeXjKVa7fJFOQ8V6R4RJz3L5J6xmyDjKa', 'student'),
+  'student123', 'student'),
 (5, 'Ishara Fernando',  'ST10004',  'ishara@students.nsbm.ac.lk',
-  '$2y$10$XKcGj1yFKq1J9Q5jKf3TOeXjKVa7fJFOQ8V6R4RJz3L5J6xmyDjKa', 'student');
+  'student123', 'student');
 
 -- Categories
 INSERT INTO categories (id, name) VALUES
